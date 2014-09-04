@@ -40,3 +40,11 @@ RUN     apt-get install -y runit monit socat
 RUN     apt-get clean
 
 RUN 	cd / && git clone https://github.com/weimed/pups.git
+
+ADD runit-1 /etc/runit/1
+ADD runit-1.d-cleanup-pids /etc/runit/1.d/cleanup-pids
+ADD runit-1.d-anacron /etc/runit/1.d/anacron
+ADD runit-2 /etc/runit/2
+
+ADD cron /etc/service/cron/run
+ADD rsyslog /etc/service/rsyslog/run

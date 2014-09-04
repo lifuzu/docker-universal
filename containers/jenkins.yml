@@ -12,8 +12,10 @@
 # This is configurable by amending the params in this file
 
 templates:
+  - "templates/ipv6disable.template.yml"
   - "templates/sshd.template.yml"
   #- "templates/java.template.yml"
+  - "templates/jenkins.template.yml"
 
 ## which TCP/IP ports should this container expose?
 expose:
@@ -53,7 +55,7 @@ env:
 volumes:
   - volume:
       host: /var/weimed/shared/jenkins
-      guest: /shared
+      guest: /var/jenkins_home
   - volume:
       host: /var/weimed/shared/jenkins/log/var-log
       guest: /var/log

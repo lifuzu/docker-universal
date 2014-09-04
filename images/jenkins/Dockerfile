@@ -1,4 +1,4 @@
-# VERSION 1.1
+# VERSION 1.2
 # DOCKER-VERSION  1.2.0
 # AUTHOR:         Richard Lee <lifuzu@gmail.com>
 # DESCRIPTION:    Image with Jenkins project and dependecies
@@ -8,6 +8,11 @@ FROM weimed/docker-base:latest
 MAINTAINER Richad Lee "lifuzu@gmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive
+
+# Set Java PATH
+ENV     JAVA_HOME /usr/local/java
+ENV     JRE_HOME /usr/local/java/jre
+ENV     PATH $PATH:$JAVA_HOME/bin:$JRE_HOME/bin
 
 # Install Jenkins
 RUN     wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
@@ -20,7 +25,14 @@ ADD     init.groovy /tmp/WEB-INF/init.groovy
 RUN     cd /tmp && zip -g /usr/share/jenkins/jenkins.war WEB-INF/init.groovy
 ADD     jenkins.sh /usr/local/bin/jenkins.sh
 RUN     chmod +x /usr/local/bin/jenkins.sh
-USER    jenkins
+
+# Disable IPV6
+#RUN     echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
+#RUN     echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
+#RUN     echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
+#RUN     echo "net.ipv6.conf.eth0.disable_ipv6 = 1" >> /etc/sysctl.conf
+
+#USER    jenkins
 
 # VOLUME /var/jenkins_home - bind this in via -v if you want to make this persistent.
 ENV     JENKINS_HOME /var/jenkins_home
@@ -29,9 +41,9 @@ ENV     JENKINS_HOME /var/jenkins_home
 ENV     JENKINS_PREFIX /
 
 # for main web interface:
-EXPOSE  8080
+#EXPOSE  8080
 
 # will be used by attached slave agents:
-EXPOSE  50000
+#EXPOSE  50000
 
-CMD ["/usr/local/bin/jenkins.sh"]
+#CMD ["/usr/local/bin/jenkins.sh"]
