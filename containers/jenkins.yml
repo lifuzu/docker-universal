@@ -19,8 +19,9 @@ templates:
 
 ## which TCP/IP ports should this container expose?
 expose:
-  - "8080:8080" # fwd host port 80   to container port 80 (http)
-  - "2222:22"   # fwd host port 2222 to container port 22 (ssh)
+  - "2222:22"     # fwd host port 2222  to container port 22 (ssh)
+  - "8080:8080"   # fwd host port 8080  to container port 8080 (http)
+  - "50000:50000" # fwd host port 50000 to container port 50000 (jnlp)
 
 params:
   #db_default_text_search_config: "pg_catalog.english"
