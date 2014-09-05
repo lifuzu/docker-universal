@@ -12,7 +12,7 @@ run:
   - replace:
       filename: /etc/pam.d/sshd
       from: "session    required     pam_loginuid.so"
-      to: ""
+      to:   "session    optional     pam_loginuid.so"
 
 
   - file:

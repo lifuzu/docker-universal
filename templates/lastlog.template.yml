@@ -1,0 +1,11 @@
+
+env:
+  HOME: /root
+
+run:
+
+  - exec:
+      cmd:
+        - touch /var/log/lastlog
+        - chgrp utmp /var/log/lastlog
+        - chmod 664 /var/log/lastlog

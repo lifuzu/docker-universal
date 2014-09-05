@@ -15,14 +15,10 @@ templates:
   - "templates/lastlog.template.yml"
   - "templates/ipv6disable.template.yml"
   - "templates/sshd.template.yml"
-  #- "templates/java.template.yml"
-  - "templates/jenkins.template.yml"
 
 ## which TCP/IP ports should this container expose?
 expose:
-  - "2222:22"     # fwd host port 2222  to container port 22 (ssh)
-  - "8080:8080"   # fwd host port 8080  to container port 8080 (http)
-  #- "50000:50000" # fwd host port 50000 to container port 50000 (jnlp)
+  - "2223:22"     # fwd host port 2222  to container port 22 (ssh)
 
 params:
   #db_default_text_search_config: "pg_catalog.english"
@@ -56,11 +52,8 @@ env:
 ## These containers are stateless, all data is stored in /shared
 volumes:
   - volume:
-      host: /var/weimed/shared/jenkins
-      guest: /var/jenkins_home
-  - volume:
-      host: /var/weimed/shared/logs/jenkins
-      guest: /var/log
+      host: /var/weimed/shared/jenkins-slaves/node1
+      guest: /home/jenkins/build
 
 ## Remember, this is YAML syntax - you can only have one block with a name
 run:
